@@ -4,8 +4,11 @@ Conversion work in Java eg DOC to PDF , Image list to PDF.
 
 # Convert Doc File TO Pdf
 ConversionController -> docToPdf
+
 Dependency : build.gradle
+
 implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.66'
+
 implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.poi.xwpf.converter.pdf', version: '2.0.2'
 
 
