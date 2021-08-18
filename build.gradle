@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.conversion'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.66'
+    implementation group: 'fr.opensagres.xdocreport', name: 'fr.opensagres.poi.xwpf.converter.pdf', version: '2.0.2'
+
+    implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.21'
+
+}
+
+test {
+    useJUnitPlatform()
+}
