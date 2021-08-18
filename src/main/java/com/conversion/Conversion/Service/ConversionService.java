@@ -5,6 +5,8 @@ import com.conversion.Conversion.Pojo.FileDetail;
 import com.conversion.Conversion.Pojo.FilesDetails;
 import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
 import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -110,5 +112,21 @@ public class ConversionService {
             System.err.println("Failed to process: " + file);
             e.printStackTrace(System.err);
         }
+    }
+
+    public void mergePdfs(FilesDetails files, HttpServletResponse response) {
+        PDFMergerUtility PDFMerger = new PDFMergerUtility();
+        try {
+            String fileName = "output.pdf";
+            PDFMerger.setDestinationFileName(fileName);
+            for (MultipartFile input : files.getFiles()) {
+                PDFMerger.addSource(converterToFile(input));
+            }
+            PDFMerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+            getClaimFiles(new File(PDFMerger.getDestinationFileName()), response);
+        } catch (Exception ignored) {
+            response.setStatus(AppConstant.SOMETHING_WENT_WRONG);
+        }
+
     }
 }

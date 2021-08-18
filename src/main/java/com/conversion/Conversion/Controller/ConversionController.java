@@ -28,4 +28,8 @@ public class ConversionController {
     public void imagesToPdf(FilesDetails file, HttpServletResponse response) {
         conversionService.combineImagesIntoPDF(file, response);
     }
+    @PostMapping(value = "/mergePdfs")
+    public void mergePdfs(FilesDetails file, HttpServletResponse response) {
+        conversionService.mergePdfs(file, response);
+    }
 }
